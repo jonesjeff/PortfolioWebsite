@@ -87,119 +87,118 @@ window.onresize = function(event) {
 };
 
 let oceanWaves = function(s0){
-  let bgGraphics, maskGraphics, mixingGraphics
-	let overAllTexture
-
+    let bgGraphics, maskGraphics, mixingGraphics
+    let overAllTexture
 	let pallete = ["#4D6F83", "#278DD3", "#F8B623", "#D51311", "#02020C"];
-  let rs;
+    let rs;
 	let sep = 3;
 
-  var vehicles = [];
-  var maxPoints = 5;
-  let startPoint;
-  let kMax;
-  let step;
-  let n = 1;
-  let radius = 200;
-  let inter = 5;
-  let maxNoise = 100;
-  let angleStep = 360 / 10;
-  let noiseProg = (x) => (x);
-  let interactiveDiv, myWidth, myHeight, myCanvas;
-  let playing = true;
-  let GLOBAL_MOUSEX, GLOBAL_MOUSEY = -999999;
+    var vehicles = [];
+    var maxPoints = 5;
+    let startPoint;
+    let kMax;
+    let step;
+    let n = 1;
+    let radius = 200;
+    let inter = 5;
+    let maxNoise = 100;
+    let angleStep = 360 / 10;
+    let noiseProg = (x) => (x);
+    let interactiveDiv, myWidth, myHeight, myCanvas;
+    let playing = true;
+    let GLOBAL_MOUSEX, GLOBAL_MOUSEY = -999999;
 
-s0.setup = function() {
-  s0.resizeSketch();
-  s0.colorMode(s0.HSB, 360, 100, 100, 100);
-  s0.angleMode(s0.DEGREES);
-  kMax = 1;
-  step = 0.01;
-  rs = s0.random(10000);
-  for (let theta = 0; theta <= 360 + angleStep * 2; theta += angleStep) {
-    var vehicle = new Vehicle(0, 0);
-    vehicles.push(vehicle);
-  }
-}
+    s0.setup = function() {
+        s0.resizeSketch();
+        s0.colorMode(s0.HSB, 360, 100, 100, 100);
+        s0.angleMode(s0.DEGREES);
+        kMax = 1;
+        step = 0.01;
+        rs = s0.random(10000);
+        for (let theta = 0; theta <= 360 + angleStep * 2; theta += angleStep) {
+            var vehicle = new Vehicle(0, 0);
+            vehicles.push(vehicle);
+        }
+    }
 
-s0.windowResized = function() {
-  s0.resizeSketch();
-}
+    s0.windowResized = function() {
+        s0.resizeSketch();
+    }
 
-var initilize = false;
-s0.resizeSketch = function(){
-  if(!initilize){
-    initilize = true;
-    interactiveDiv = document.getElementById('interactiveLandingContainer');
-    myWidth = interactiveDiv.offsetWidth;
-    //myHeight =  s0.windowHeight;
-    myHeight = myWidth;
-    let cnv = s0.createCanvas(myWidth, myHeight);
-    cnv.style('display', 'block');
-    s0.pixelDensity(1);
-	  bgGraphics = s0.createGraphics(s0.width,s0.height);
-	  maskGraphics = s0.createGraphics(s0.width,s0.height);
-	  mixingGraphics = s0.createImage(s0.width,s0.height);
-	  overAllTexture= s0.createGraphics(s0.width,s0.height);
-  }
-  else{
-    myWidth = interactiveDiv.offsetWidth;
-    //myHeight =  s0.windowHeight;
-    myHeight = myWidth;
-    s0.resizeCanvas(myWidth, myHeight);
-    bgGraphics.resizeCanvas(s0.width,s0.height);
-    maskGraphics.resizeCanvas(s0.width,s0.height);
-    mixingGraphics.resize(myWidth,myHeight);
-  }
-  radius = myWidth * .2;
-}
+    var initilize = false;
+    s0.resizeSketch = function(){
+    if(!initilize){
+        initilize = true;
+        interactiveDiv = document.getElementById('interactiveLandingContainer');
+        myWidth = interactiveDiv.offsetWidth;
+        //myHeight =  s0.windowHeight;
+        myHeight = myWidth;
+        let cnv = s0.createCanvas(myWidth, myHeight);
+        cnv.style('display', 'block');
+        s0.pixelDensity(1);
+        bgGraphics = s0.createGraphics(s0.width,s0.height);
+        maskGraphics = s0.createGraphics(s0.width,s0.height);
+        mixingGraphics = s0.createImage(s0.width,s0.height);
+        overAllTexture= s0.createGraphics(s0.width,s0.height);
+    }
+    else{
+        myWidth = interactiveDiv.offsetWidth;
+        //myHeight =  s0.windowHeight;
+        myHeight = myWidth;
+        s0.resizeCanvas(myWidth, myHeight);
+        bgGraphics.resizeCanvas(s0.width,s0.height);
+        maskGraphics.resizeCanvas(s0.width,s0.height);
+        mixingGraphics.resize(myWidth,myHeight);
+    }
+    radius = myWidth * .2;
+    }
 
-let isPaused = false;
-s0.PauseState = function(pause){
-  isPaused = pause;
-	if(pause){
-    s0.noLoop();
-	}else{
-    s0.loop();
-	}
-}
+    let isPaused = false;
+    s0.PauseState = function(pause){
+    isPaused = pause;
+        if(pause){
+        s0.noLoop();
+        }else{
+        s0.loop();
+        }
+    }
 
-let touchDevice = false;
-s0.mouseMoved = function(){
-	if(!touchDevice){
-    GLOBAL_MOUSEX = s0.mouseX;
-		GLOBAL_MOUSEY = s0.mouseY;
-	}
-}
+    let touchDevice = false;
+    s0.mouseMoved = function(){
+        if(!touchDevice){
+        GLOBAL_MOUSEX = s0.mouseX;
+            GLOBAL_MOUSEY = s0.mouseY;
+        }
+    }
 
-s0.mousePressed = function(){
-  if(!isPaused){
-    rs = s0.frameCount;
-  }
-}
+    s0.mousePressed = function(){
+        if(!isPaused){
+            rs = s0.frameCount;
+        }
+    }
 
-s0.touchStarted = function(){
-    touchDevice = true;
-	if(!isPaused){
-    GLOBAL_MOUSEX = s0.mouseX;
-	GLOBAL_MOUSEY = s0.mouseY;
-	rs = s0.frameCount;
-	setTimeout(s0.reset,500);
-	//return false;
-	}
-}
+    s0.touchStarted = function(){
+        touchDevice = true;
+        if(!isPaused){
+        GLOBAL_MOUSEX = s0.mouseX;
+        GLOBAL_MOUSEY = s0.mouseY;
+        rs = s0.frameCount;
+        setTimeout(s0.reset,500);
+        //return false;
+        }
+    }
 
-s0.reset = function(){
-    alert(window.innerHeight + "||" + window.outerHeight)
-	GLOBAL_MOUSEX = -99999;
-	GLOBAL_MOUSEY = -99999;
-}
+    s0.reset = function(){
+        alert(window.innerHeight + "||" + window.outerHeight)
+        GLOBAL_MOUSEX = -99999;
+        GLOBAL_MOUSEY = -99999;
+    }
 
-s0.touchEnded = function(){
-    //GLOBAL_MOUSEX = -9999999;
-    //GLOBAL_MOUSEY = -9999999;
-    //rs = s0.frameCount;
-  }
+    s0.touchEnded = function(){
+        //GLOBAL_MOUSEX = -9999999;
+        //GLOBAL_MOUSEY = -9999999;
+        //rs = s0.frameCount;
+    }
 
 function blob(size, xCenter, yCenter, k, t, noisiness) {
   let index = 0;
@@ -224,7 +223,7 @@ function blob(size, xCenter, yCenter, k, t, noisiness) {
 
 s0.draw = function() {
     s0.clear();
-		maskGraphics.clear();
+	maskGraphics.clear();
     maskGraphics.fill(0);
     maskGraphics.push();
 
@@ -239,30 +238,25 @@ s0.draw = function() {
 		maskGraphics.pop();
 
     //Circle particles
-		for(var i=0;i<5;i++){
-    maskGraphics.ellipse(s0.width / 2 + s0.map(s0.noise(i, 5000, s0.frameCount / 400), 0.2, 0.8, -s0.width / 3, s0.width / 3),
-      s0.height / 2 + s0.map(s0.noise(i, 10000, s0.frameCount / 400), 0.2, 0.8, -s0.height / 3, s0.height / 3),
-      s0.noise(i, 20000, s0.frameCount / 400) * s0.constrain(s0.frameCount * .8, 0, 100));
-		}
-		for(var i=0;i<8;i++){
-    maskGraphics.ellipse(s0.width / 2 + s0.map(s0.noise(i, 5000, s0.frameCount / 400), 0.3, 0.7, -s0.width / 3, s0.width / 3),
-      s0.height / 2 + s0.map(s0.noise(i, 10000, s0.frameCount / 400), 0.3, 0.7, -s0.height / 3, s0.height / 3),
-      s0.noise(i, 100000, s0.frameCount / 400) * s0.constrain(s0.frameCount * .8, 0, 20));
+	for(var i=0;i<5;i++){
+        maskGraphics.ellipse(s0.width / 2 + s0.map(s0.noise(i, 5000, s0.frameCount / 400), 0.2, 0.8, -s0.width / 3, s0.width / 3), s0.height / 2 + s0.map(s0.noise(i, 10000, s0.frameCount / 400), 0.2, 0.8, -s0.height / 3, s0.height / 3), s0.noise(i, 20000, s0.frameCount / 400) * s0.constrain(s0.frameCount * .8, 0, 100));
+	}
+	for(var i=0;i<8;i++){
+        maskGraphics.ellipse(s0.width / 2 + s0.map(s0.noise(i, 5000, s0.frameCount / 400), 0.3, 0.7, -s0.width / 3, s0.width / 3), s0.height / 2 + s0.map(s0.noise(i, 10000, s0.frameCount / 400), 0.3, 0.7, -s0.height / 3, s0.height / 3), s0.noise(i, 100000, s0.frameCount / 400) * s0.constrain(s0.frameCount * .8, 0, 20));
     }
-		bgGraphics.clear();
+	bgGraphics.clear();
 
     s0.randomSeed(rs);
-    for (let y = -s0.height/2; y < s0.height; {
-    let c1 = s0.random(pallete);
-      let c2 = s0.random(pallete);
-      let c3 = s0.random(pallete);
-      while (c1 == c2 || c2 == c3 || c3 == c1) {
-    c1 = s0.random(pallete);
-        c2 = s0.random(pallete);
-        c3 = s0.random(pallete);
-      }
+    for (let y = -s0.height/2; y < s0.height; y += s0.height / 7) {
+        let c1 = s0.random(pallete);
+        let c2 = s0.random(pallete);
+        let c3 = s0.random(pallete);
+        while (c1 == c2 || c2 == c3 || c3 == c1) {
+            c1 = s0.random(pallete);
+            c2 = s0.random(pallete);
+            c3 = s0.random(pallete);
+        }
       let gradient = bgGraphics.drawingContext.createLinearGradient(0, 0, s0.width, 0);
-
       gradient.addColorStop(0.0, c1);
       gradient.addColorStop(s0.random(0.3,0.7), c2);
       gradient.addColorStop(1.0, c3);
@@ -271,9 +265,9 @@ s0.draw = function() {
       bgGraphics.noStroke();
       bgGraphics.beginShape();
       for (let x = -200; x <= s0.width+200; x+=50) {
-    let yy = y + s0.map(s0.noise(rs+y, x / 400, s0.frameCount / 300), 0, 1, -s0.height / sep, s0.height / sep);
+        let yy = y + s0.map(s0.noise(rs+y, x / 400, s0.frameCount / 300), 0, 1, -s0.height / sep, s0.height / sep);
         bgGraphics.curveVertex(x, yy);
-    	}
+        }
       bgGraphics.vertex(s0.width+200, s0.height + 200);
       bgGraphics.vertex(0-200, s0.height + 200);
       bgGraphics.endShape();
@@ -351,6 +345,6 @@ s0.draw = function() {
     //maskGraphics.strokeWeight(20);
     //maskGraphics.point(this.pos.x, this.pos.y);
   }
-
 }
+
 let sketch = new p5(oceanWaves, 'interactiveLandingContainer');
