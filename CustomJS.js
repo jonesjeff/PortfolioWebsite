@@ -67,6 +67,7 @@ barba.init({
       gsap.from(data.next.container, 0.25, {opacity: 0, onComplete: this.async(),});
     },
     after(data){
+      console.log("After is: " + data.next.namespace);
       /*
       window.Webflow && window.Webflow.destroy();
       window.Webflow && window.Webflow.ready();
