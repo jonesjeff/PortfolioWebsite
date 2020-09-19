@@ -67,6 +67,7 @@ barba.init({
       gsap.from(data.next.container, 0.25, {opacity: 0, onComplete: this.async(),});
     },
     after(data){
+      /*
       window.Webflow && window.Webflow.destroy();
       window.Webflow && window.Webflow.ready();
       window.Webflow && window.Webflow.require( 'ix2' ).init();
@@ -74,8 +75,9 @@ barba.init({
 
       if(data.next.namespace == 'slider'){
         var sourceNav = $('#sourceNav');
-        //sourceNav.children().eq(index).trigger('tap');
+        sourceNav.children().eq(index).trigger('tap');
       }
+      */
     }
   },]
 });
