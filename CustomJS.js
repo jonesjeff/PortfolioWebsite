@@ -8,6 +8,7 @@ $(document).ready(function() {
       }
     },
     afterLoad: function(origin, destination, direction){
+      /*
       var menu = document.getElementById("menu");
       menu.style.height = window.innerHeight+"px";
       if(direction == "up"){
@@ -15,6 +16,7 @@ $(document).ready(function() {
       }else{
         menu.style.top = (window.outerHeight - window.innerHeight) + "px";
       }
+      */
       if(destination.index == 0){
         sketch.PauseState(false);
       }
@@ -260,7 +262,6 @@ s0.draw = function() {
       gradient.addColorStop(0.0, c1);
       gradient.addColorStop(s0.random(0.3,0.7), c2);
       gradient.addColorStop(1.0, c3);
-      //上で指定したグラデーション内容を塗りつぶしスタイルに代入する
       bgGraphics.drawingContext.fillStyle = gradient;
       bgGraphics.noStroke();
       bgGraphics.beginShape();
