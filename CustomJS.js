@@ -67,8 +67,8 @@ barba.init({
       gsap.from(data.next.container, 0.25, {opacity: 0, onComplete: this.async(),});
     },
     after(data){
-      console.log("After is: " + data.next.namespace);
-      /*
+      console.log("current is: " + data.next.namespace);
+      
       window.Webflow && window.Webflow.destroy();
       window.Webflow && window.Webflow.ready();
       window.Webflow && window.Webflow.require( 'ix2' ).init();
@@ -78,7 +78,7 @@ barba.init({
         var sourceNav = $('#sourceNav');
         sourceNav.children().eq(index).trigger('tap');
       }
-      */
+      
     }
   },]
 });
