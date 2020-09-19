@@ -74,7 +74,7 @@ barba.init({
 
       if(data.next.namespace == 'slider'){
         var sourceNav = $('#sourceNav');
-        sourceNav.children().eq(index).trigger('tap');
+        //sourceNav.children().eq(index).trigger('tap');
       }
     }
   },]
