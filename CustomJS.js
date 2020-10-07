@@ -7,7 +7,7 @@ $(document).ready(function() {
   console.log("page ready");
   let aboutSketchesInit = false
 
-  let sketch1, sketch2, sketch3;
+  let sketch, sketch1, sketch2, sketch3;
 
   myFullpage = new fullpage('#fullpage', {
     onLeave: function(index, nextIndex, direction) {
@@ -421,5 +421,5 @@ let oceanWaves = function(s0) {
     //maskGraphics.strokeWeight(20);
     //maskGraphics.point(this.pos.x, this.pos.y);
   }
-  let sketch = new p5(oceanWaves, 'interactiveLandingContainer');
+  sketch = new p5(oceanWaves, 'interactiveLandingContainer');
 }
